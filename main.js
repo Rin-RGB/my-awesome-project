@@ -10,8 +10,25 @@ openBtn.addEventListener('click', () => {
  dlg.querySelector('input,select,textarea,button')?.focus();
 });
 closeBtn.addEventListener('click', () => dlg.close('cancel'));
-// form?.addEventListener('submit', (e) => {
-//  // валидация см. 1.4.2; при успехе закрываем окно
-// });
+form?.addEventListener('submit', (e) => {
+    [...form.elements].forEach(el => el.setCustomValidity?.(''));
+    if (!form.checkValidity()) {
+        e.preventDefault();
+        const email = form.elements.email;
+        if (email?.validity.typeMismatch) {
+            email.setCustomValidity('Введите корректный e-mail, например name@example.com');
+        }
+        form.reportValidity(); // показать браузерные подсказки
+ // A11y: подсветка проблемных полей
+        [...form.elements].forEach(el => {
+        if (el.willValidate) el.toggleAttribute('aria-invalid', !el.checkValidity());
+    });
+    return;
+    }
+    preventDefault();
+    // Если форма внутри <dialog>, закрываем окно:
+    document.getElementById('contactDialog')?.close('success');
+    form.reset();
+});
 dlg.addEventListener('close', () => { lastActive?.focus(); });
 // Esc по умолчанию вызывает событие 'cancel' и закрывает <dialog>
