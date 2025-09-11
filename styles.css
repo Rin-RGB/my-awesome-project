@@ -1,6 +1,6 @@
 /* БАЗА: читаемость и предсказуемость размеров */
 * { box-sizing: border-box; }
-html, body { margin: 20; padding: 0; }
+html, body { margin: 20; padding: 5; }
 body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial,
 sans-serif; line-height: 1.5; }
 /* Формы: размеры, отступы, визуальный порядок */
